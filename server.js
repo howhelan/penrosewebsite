@@ -1,32 +1,36 @@
-var http = require('http')
-  , fs   = require('fs')
-  , url  = require('url')
+var fs   = require('fs')
+  , path  = require('path')
   , port = 8080
-  ,express = require('express');
+  , express = require('express');
 
 
-var app = express()
-app.use(express.static('public'))
-app.set('port', process.env.PORT || 3000);
+var app = express();					// The express app
+var PORT = process.env.PORT || 8080;	// Port to listen on
 
-
-//app.use(express.bodyParser());
-app.listen(app.get('port'))
-
-//-------------Files-------------
-app.get('/', function(req, res) {
-  res.sendFile('index.html', {"root": __dirname})
-});
-
-app.get('/logo.png', function(req, res) {
-  res.sendFile('logo.png', {"root": __dirname})
-});
-
-app.get('/css', function(req, res) {
-  res.sendFile('css', {"root": __dirname})
-});
+app.use(express.static('public'));
+app.set('views', 'public');
+app.set('view engine', 'pug');
 
 //-------------Files-------------
-app.get('/README.md', function(req, res) {
-  sendFile(res, 'README.md', 'text/html')
+// app.get('/', (req, res) => {
+//   res.render('index');
+// });
+
+// app.get('/logo.png', function(req, res) {
+//   res.sendFile('logo.png', {"root": __dirname})
+// });
+
+// app.get('/css', function(req, res) {
+//   res.sendFile('css', {"root": __dirname})
+// });
+
+// //-------------Files-------------
+// app.get('/README.md', function(req, res) {
+//   sendFile(res, 'README.md', 'text/html')
+// });
+
+// Start the server
+app.listen(PORT, () => {
+	console.log(`Started listening on port ${PORT}`);
+	console.log('Press Ctrl+C to quit\n');
 });
